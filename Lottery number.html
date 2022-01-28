@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+ 	<style type="text/css">
+		*{
+			font-size:125px;
+		}
+		.col{
+			background-color:#DCE2F0;
+			color:#50586C;
+			font-weight:800;
+			margin: 20px;
+			text-align:center;
+			width:200px;
+			height:200px;
+			display:inline-block;
+			border:2px solid gray;
+			border-radius:10px;
+			line-height:200px;
+		}
+		#reRollBtn{
+			cursor:pointer;
+			margin-top:100px;
+			margin-left:800px;
+			background-color:#DCE2F0;
+			color:#50586C;
+			font-weight:800;
+			border-radius:10px;
+			border:2px solid gray;
+		}
+	</style>
+  <meta charset="UTF-8">
+  <title>☆로또 번호 추첨기★</title>
+ </head>
+ <body>
+  
+	<div>
+		<span>당신의 로또 번호는 바로...!</span>
+	</div>
+	<div id="nums">
+	</div>
+	<input type="button" value="다시뽑기" id="reRollBtn" />
+
+  <script>
+	let $nums = document.getElementById('nums');
+	let $btn = document.getElementById('reRollBtn');
+	
+
+	function reRoll(){
+		const numArr = [];
+
+		for(let i = 0; i < 6; i++){
+			let num = parseInt(Math.random() * 45 + 1);
+			let plag = true;
+			if(i === 0) numArr[i] = num;
+			else {
+					for(let j = 0; j < i; j++){
+						if(numArr[j] === num) {
+								plag = false;
+								break;
+							}
+					}
+				}
+
+				if(numArr.length !== 6){
+					if (plag) numArr[i] = num;
+					else i--;
+					}
+		}
+
+		let strHTML = '';
+
+
+		numArr.sort((a,b) => a-b);
+		for(let i = 0; i < numArr.length; i++){
+				strHTML += '<span class="col">' + numArr[i] + '</span>';
+			}
+
+			$nums.innerHTML = strHTML;
+		}
+
+		window.addEventListener('onload',reRoll());
+		$btn.addEventListener('click',reRoll);
+	
+  </script>
+ </body>
+</html>
